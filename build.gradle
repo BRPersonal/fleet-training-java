@@ -1,0 +1,39 @@
+
+plugins {
+  id 'java'
+  id 'application'
+}
+
+group = 'com.fleet'
+version = '1.0.0-SNAPSHOT'
+
+java {
+  sourceCompatibility = '17'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "ch.qos.logback:logback-classic:1.2.11"
+}
+
+application {
+    mainClass = 'com.fleet.training.Main'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks {
+    run {
+        standardInput = System.in
+    }
+}
+
+
+apply from: 'gradle/lombok.gradle'
+apply from: 'gradle/unit-test.gradle'
