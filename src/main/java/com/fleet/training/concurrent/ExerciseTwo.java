@@ -8,6 +8,10 @@ import java.util.concurrent.ExecutionException;
 import static java.util.concurrent.StructuredTaskScope.*;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * Example demonstrating structured concurrency
+ *
+ */
 @Slf4j
 public class ExerciseTwo implements Runnable
 {
