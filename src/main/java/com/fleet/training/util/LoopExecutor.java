@@ -34,9 +34,9 @@ public class LoopExecutor implements Iterable<Map<String,Object>>, Iterator<Map<
         iterators = new ArrayList<>();
 
         //get fresh iterators
-        for(int i = 0; i < variables.size(); i++)
+        for (LoopVariable<?> variable : variables)
         {
-            iterators.add(variables.get(i).iterator());
+            iterators.add(variable.iterator());
         }
 
         initialised = false;
@@ -58,38 +58,41 @@ public class LoopExecutor implements Iterable<Map<String,Object>>, Iterator<Map<
             }
         }
 
-        if (!initialised)
+        if (hasNext)
         {
-            for(Iterator iter : iterators)
+            if (!initialised)
             {
-                iter.next();
+                for (Iterator iter : iterators)
+                {
+                    iter.next(); //init the iterator
+                }
+                initialised = true;
             }
-            initialised = true;
-        }
-        else
-        {
-            int iterIndex = iterators.size() -1;
-            while(iterIndex > 0)
+            else
             {
-                if (iterators.get(iterIndex).hasNext())
+                int iterIndex = iterators.size() - 1;
+                while (iterIndex > 0)
                 {
-                    iterators.get(iterIndex).next();
-                    break;
+                    if (iterators.get(iterIndex).hasNext())
+                    {
+                        iterators.get(iterIndex).next();
+                        break;
+                    }
+                    else
+                    {
+                        iterators.remove(iterIndex);
+                        iterators.add(iterIndex, variables.get(iterIndex).iterator());
+                        iterators.get(iterIndex).next(); //init the iterator
+                        iterIndex--;
+                    }
                 }
-                else
-                {
-                    iterators.remove(iterIndex);
-                    iterators.add(iterIndex, variables.get(iterIndex).iterator());
-                    iterators.get(iterIndex).next(); //init the iterator
-                    iterIndex--;
-                }
-            }
 
-            if(iterIndex == 0)
-            {
-                if (iterators.getFirst().hasNext())
+                if (iterIndex == 0)
                 {
-                    iterators.getFirst().next();
+                    if (iterators.getFirst().hasNext())
+                    {
+                        iterators.getFirst().next();
+                    }
                 }
             }
         }

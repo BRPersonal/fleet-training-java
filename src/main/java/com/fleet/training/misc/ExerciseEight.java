@@ -17,9 +17,15 @@ public class ExerciseEight  implements Runnable
 
         LoopExecutor executor = new LoopExecutor(List.of(x,y,z));
 
-        for(Map<String,Object> step : executor)
+        for(int i = 0; i < 2 ; i++) //this loop is to check whether same executor can be reused
         {
-            System.out.println(step);
+            System.out.printf("Iteration %d%n", (i + 1));
+            System.out.println("-----------------");
+
+            for (Map<String, Object> step : executor)
+            {
+                System.out.println(step);
+            }
         }
     }
 }
