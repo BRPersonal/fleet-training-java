@@ -37,6 +37,7 @@ public class ExerciseTen  implements Runnable
                 i = 0;
             }
         }
+        log.debug("End of Iterations");
 
 
     }
