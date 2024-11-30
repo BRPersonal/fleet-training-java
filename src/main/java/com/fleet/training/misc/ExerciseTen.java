@@ -27,9 +27,11 @@ public class ExerciseTen  implements Runnable
 
         LoopExecutor loopExecutor = new LoopExecutor(List.of(x1,y1,z1,x2,y2,z2,x3,y3,z3));
         int i = 0;
+        long counter = 0;
         for (Map<String, Object> step : loopExecutor)
         {
             i++;
+            counter++;
 
             if ( i % 1000 == 0)
             {
@@ -37,7 +39,7 @@ public class ExerciseTen  implements Runnable
                 i = 0;
             }
         }
-        log.debug("End of Iterations");
+        log.debug("End of Iterations. Total count={}", counter);
 
 
     }
