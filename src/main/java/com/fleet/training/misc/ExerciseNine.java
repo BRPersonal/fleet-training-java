@@ -4,11 +4,13 @@ import com.fleet.training.util.EquationExecutor;
 import com.fleet.training.util.Evaluator;
 import com.fleet.training.util.LoopExecutor;
 import com.fleet.training.util.LoopVariable;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class ExerciseNine implements Runnable
 {
     @Override
@@ -37,9 +39,20 @@ public class ExerciseNine implements Runnable
         LoopVariable<Integer> y = new LoopVariable<>("y", LoopVariable.generateIntRange(1, 9));
         LoopExecutor loopExecutor = new LoopExecutor(List.of(x,y));
 
+        boolean atleastOneSolutionExists = false;
+
         for (Map<String, Object> step : loopExecutor)
         {
-            eqExecutor.evaluate(step);
+            boolean result = eqExecutor.evaluate(step);
+            if (result)
+            {
+                atleastOneSolutionExists = true;
+            }
+        }
+
+        if (!atleastOneSolutionExists)
+        {
+            log.debug("No solutions found");
         }
 
     }
