@@ -72,22 +72,22 @@ public class BridgePuzzle
 
                 timeSpent += timeTaken(person1,person2);
 
-                if(timeSpent <= timeAvailable)
+                if((timeSpent <= timeAvailable) && (sourceList.isEmpty()))
                 {
                     System.out.println("timeSpent=" + timeSpent);
                     System.out.println(solutionSteps);
-                    System.exit(0);  //solution reached. Let us terminate the process
+                    //System.exit(0);  //solution reached. Let us terminate the process
                 }
                 else
                 {
                     System.out.println("Iteration Failed");
-
-                    //reset state and start afresh
-                    sourceList.clear();
-                    sourceList.addAll(persons);
-                    destinationList.clear();
-                    solutionSteps.setLength(0);
                 }
+
+                //reset state and start afresh
+                sourceList.clear();
+                sourceList.addAll(persons);
+                destinationList.clear();
+                solutionSteps.setLength(0);
 
                 break;
         }
