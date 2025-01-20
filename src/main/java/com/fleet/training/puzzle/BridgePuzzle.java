@@ -31,11 +31,11 @@ public class BridgePuzzle
 
     public void solve()
     {
-        move(new ArrayList<>(persons), new ArrayList<>(),1,0,new StringBuffer());
+        solve(new ArrayList<>(persons), new ArrayList<>(),1,0,new StringBuffer());
     }
 
-    private void move(List<String> sourceList, List<String> destinationList
-            , int step,int timeSpent, StringBuffer solutionSteps)
+    private void solve(List<String> sourceList, List<String> destinationList
+            , int step, int timeSpent, StringBuffer solutionSteps)
     {
         switch(step)
         {
@@ -46,47 +46,52 @@ public class BridgePuzzle
                 {
                     String person1 = iter.next();
                     String person2 = iter.next();
-                    moveToDestination(person1,person2,sourceList,destinationList,solutionSteps);
+
+                    moveToDestination(person1,person2,sourceList,destinationList);
+                    solutionSteps.append(String.format("%s,%s move to destination %s",person1,person2,System.lineSeparator()));
+
                     timeSpent += timeTaken(person1,person2);
-                    move(sourceList,destinationList,step + 1,timeSpent,solutionSteps);
+
+                    solve(new ArrayList<>(sourceList),new ArrayList<>(destinationList),step + 1,timeSpent,solutionSteps);
+
+                    //restore previous state
+                    moveToDestination(person1,person2,destinationList,sourceList);
+
                 }
                 break;
 
             case 2,4:
 
-                for (String person : new ArrayList<>(destinationList))
+                List<String> copy = new ArrayList<>(destinationList);
+                for (String person : copy)
                 {
-                    moveToSource(person, sourceList,destinationList,solutionSteps);
+                    moveToSource(person, sourceList,destinationList);
+                    solutionSteps.append(String.format("%s move back to source %s",person,System.lineSeparator()));
                     timeSpent += timeTaken(person);
-                    move(sourceList,destinationList,step + 1,timeSpent,solutionSteps);
+                    solve(new ArrayList<>(sourceList),new ArrayList<>(destinationList),step + 1,timeSpent,solutionSteps);
+
+                    //restore previous state
+                    moveToSource(person, destinationList,sourceList);
                 }
                 break;
 
             case 5:
 
-                System.out.println(String.format("at step 5 sourceList=%s",sourceList));
-
                 String person1 = sourceList.get(0);
                 String person2 = sourceList.get(1);
-                moveToDestination(person1,person2,sourceList,destinationList,solutionSteps);
+                moveToDestination(person1,person2,sourceList,destinationList);
+                solutionSteps.append(String.format("%s,%s move to destination %s",person1,person2,System.lineSeparator()));
 
                 timeSpent += timeTaken(person1,person2);
 
-                if((timeSpent <= timeAvailable) && (sourceList.isEmpty()))
+                if(timeSpent <= timeAvailable)
                 {
-                    System.out.println("timeSpent=" + timeSpent);
+                    System.out.println("Solution arrived.timeSpent=" + timeSpent);
                     System.out.println(solutionSteps);
                     //System.exit(0);  //solution reached. Let us terminate the process
                 }
-                else
-                {
-                    System.out.println("Iteration Failed");
-                }
 
-                //reset state and start afresh
-                sourceList.clear();
-                sourceList.addAll(persons);
-                destinationList.clear();
+                //reset solution steps
                 solutionSteps.setLength(0);
 
                 break;
@@ -123,21 +128,20 @@ public class BridgePuzzle
     }
 
     private void moveToDestination(String person1,String person2, List<String> sourceList
-            , List<String> destinationList,StringBuffer solutionSteps)
+            , List<String> destinationList)
     {
-        solutionSteps.append(String.format("%s,%s move to destination %s",person1,person2,System.lineSeparator()));
+
         sourceList.remove(person1);
         sourceList.remove(person2);
         destinationList.add(person1);
         destinationList.add(person2);
     }
 
-    private void moveToSource(String person1,List<String> sourceList
-            , List<String> destinationList,StringBuffer solutionSteps )
+    private void moveToSource(String person,List<String> sourceList
+            , List<String> destinationList)
     {
-        solutionSteps.append(String.format("%s move back to source %s",person1,System.lineSeparator()));
-        sourceList.add(person1);
-        destinationList.remove(person1);
+        sourceList.add(person);
+        destinationList.remove(person);
     }
 
 }
