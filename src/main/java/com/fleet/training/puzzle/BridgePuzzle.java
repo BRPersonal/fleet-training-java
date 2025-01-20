@@ -24,8 +24,8 @@ public class BridgePuzzle
 
     public BridgePuzzle()
     {
-        persons = List.of("A","B","C","D");
-        timingMap = Map.of(persons.get(0),1,persons.get(1),2,persons.get(2),5,persons.get(3),8);
+        persons = List.of("C","A","D","B");
+        timingMap = Map.of(persons.get(0),5,persons.get(1),1,persons.get(2),8,persons.get(3),2);
         timeAvailable = 15;
     }
 
@@ -42,6 +42,7 @@ public class BridgePuzzle
             case 1,3:
 
                 List<String> combinations = getCombinations(sourceList);
+
                 for(Iterator<String> iter = combinations.iterator(); iter.hasNext();)
                 {
                     String person1 = iter.next();
@@ -88,8 +89,13 @@ public class BridgePuzzle
                 {
                     System.out.println("Solution arrived.timeSpent=" + timeSpent);
                     System.out.println(solutionSteps);
-                    //System.exit(0);  //solution reached. Let us terminate the process
                 }
+                else
+                {
+                    System.out.println("Solution not arrived.timeSpent=" + timeSpent);
+                    System.out.println(solutionSteps);
+                }
+                System.out.println("----------End of Trial");
 
                 //reset solution steps
                 solutionSteps.setLength(0);
