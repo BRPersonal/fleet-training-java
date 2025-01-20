@@ -24,8 +24,8 @@ public class BridgePuzzle
 
     public BridgePuzzle()
     {
-        persons = List.of("C","A","D","B");
-        timingMap = Map.of(persons.get(0),5,persons.get(1),1,persons.get(2),8,persons.get(3),2);
+        persons = List.of("A","B","C","D");
+        timingMap = Map.of(persons.get(0),1,persons.get(1),2,persons.get(2),5,persons.get(3),8);
         timeAvailable = 15;
     }
 
