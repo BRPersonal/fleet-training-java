@@ -24,18 +24,18 @@ public class BridgePuzzle
 
     public BridgePuzzle()
     {
-        persons = List.of("A","B","C","D");
-        timingMap = Map.of(persons.get(0),1,persons.get(1),2,persons.get(2),5,persons.get(3),8);
+        persons = List.of("A","D","B","C");
+        timingMap = Map.of(persons.get(0),1,persons.get(1),8,persons.get(2),2,persons.get(3),5);
         timeAvailable = 15;
     }
 
     public void solve()
     {
-        solve(new ArrayList<>(persons), new ArrayList<>(),1,0,new StringBuffer());
+        solve(new ArrayList<>(persons), new ArrayList<>(),1,0);
     }
 
     private void solve(List<String> sourceList, List<String> destinationList
-            , int step, int timeSpent, StringBuffer solutionSteps)
+            , int step, int timeSpent)
     {
         switch(step)
         {
@@ -49,14 +49,15 @@ public class BridgePuzzle
                     String person2 = iter.next();
 
                     moveToDestination(person1,person2,sourceList,destinationList);
-                    solutionSteps.append(String.format("%s,%s move to destination %s",person1,person2,System.lineSeparator()));
+                    System.out.println(String.format("%s,%s move to destination",person1,person2));
 
                     timeSpent += timeTaken(person1,person2);
 
-                    solve(new ArrayList<>(sourceList),new ArrayList<>(destinationList),step + 1,timeSpent,solutionSteps);
+                    solve(new ArrayList<>(sourceList),new ArrayList<>(destinationList),step + 1,timeSpent);
 
                     //restore previous state
                     moveToDestination(person1,person2,destinationList,sourceList);
+                    timeSpent -= timeTaken(person1,person2);
 
                 }
                 break;
@@ -67,12 +68,13 @@ public class BridgePuzzle
                 for (String person : copy)
                 {
                     moveToSource(person, sourceList,destinationList);
-                    solutionSteps.append(String.format("%s move back to source %s",person,System.lineSeparator()));
+                    System.out.println(String.format("%s move back to source",person));
                     timeSpent += timeTaken(person);
-                    solve(new ArrayList<>(sourceList),new ArrayList<>(destinationList),step + 1,timeSpent,solutionSteps);
+                    solve(new ArrayList<>(sourceList),new ArrayList<>(destinationList),step + 1,timeSpent);
 
                     //restore previous state
                     moveToSource(person, destinationList,sourceList);
+                    timeSpent -= timeTaken(person);
                 }
                 break;
 
@@ -81,24 +83,23 @@ public class BridgePuzzle
                 String person1 = sourceList.get(0);
                 String person2 = sourceList.get(1);
                 moveToDestination(person1,person2,sourceList,destinationList);
-                solutionSteps.append(String.format("%s,%s move to destination %s",person1,person2,System.lineSeparator()));
+                System.out.println(String.format("%s,%s move to destination",person1,person2));
 
                 timeSpent += timeTaken(person1,person2);
 
                 if(timeSpent <= timeAvailable)
                 {
-                    System.out.println("Solution arrived.timeSpent=" + timeSpent);
-                    System.out.println(solutionSteps);
+                    System.out.println("Success.Solution arrived.timeSpent=" + timeSpent);
                 }
                 else
                 {
-                    System.out.println("Solution not arrived.timeSpent=" + timeSpent);
-                    System.out.println(solutionSteps);
+                    System.out.println("Failure.Solution not arrived.timeSpent=" + timeSpent);
+
+                    //restore previous state
+                    moveToDestination(person1,person2,destinationList,sourceList);
+                    timeSpent -= timeTaken(person1,person2);
                 }
                 System.out.println("----------End of Trial");
-
-                //reset solution steps
-                solutionSteps.setLength(0);
 
                 break;
         }
