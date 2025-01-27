@@ -5,12 +5,12 @@ import java.util.*;
 /**
  * Four people A,B,C,D has to cross a bridge that will collapse in
  * 15 minutes.
- *
+ * <p>
  * A can cross the bridge in 1 minute
  * B can cross the bridge in 2 minutes
  * C can cross the bridge in 5 minutes
  * D can cross the bridge in 8 minutes
- *
+ * <p>
  * It is pitch dark at night, and you need a torch to cross the bridge
  * There is only one torch
  * Max. two people can cross the bridge at a time.
@@ -24,11 +24,21 @@ public class BridgePuzzle
 
     public BridgePuzzle()
     {
-        persons = List.of("A","B","C","D");
-        timingMap = Map.of(persons.get(0),1,persons.get(1),2,persons.get(2),5,persons.get(3),8);
+        persons = List.of("A","D","C","B");
+        timingMap = Map.of(persons.get(0),1,persons.get(1),8,persons.get(2),5,persons.get(3),2);
         timeAvailable = 15;
     }
 
+    /**
+     * Steps
+     * ------
+     * Step 1: Move Two persons from source to destination
+     * Step 2: Move one person from destination to source
+     * Step 3: Move Two persons from source to destination
+     * Step 4: Move one person from destination to source
+     * Step 5: Move final Two persons from source to destination.
+     *         If total time taken is 15 minutes, solution is reached
+     */
     public void solve()
     {
         solve(new ArrayList<>(persons), new ArrayList<>(),new ArrayList<>(),1,0);
