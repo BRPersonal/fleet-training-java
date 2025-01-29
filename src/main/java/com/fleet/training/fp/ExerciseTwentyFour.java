@@ -36,9 +36,8 @@ public class ExerciseTwentyFour implements Runnable
                 .collect(Collectors.groupingBy(Map.Entry::getValue,
                         Collectors.mapping(Map.Entry::getKey,Collectors.toList())
                 ));
-        //log.debug("intermediateMap:{}", intermediateMap);
 
-        //sort the map by key in descending order and
+        //sort the map by key(i.e,salary) in descending order and
         //find out the names of employees who get the nth highest salary
         Map.Entry<Integer,List<String>> entry = intermediateMap.entrySet().stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
