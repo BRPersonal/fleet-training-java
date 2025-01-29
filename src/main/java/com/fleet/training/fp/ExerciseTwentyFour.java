@@ -30,16 +30,12 @@ public class ExerciseTwentyFour implements Runnable
 
     private Map.Entry<Integer,List<String>> getNthTopSalariedPeople(Map<String,Integer> map, int n)
     {
-        //form a map with key as salary and value as list of names
-        //who are getting that same salary
-        Map<Integer, List<String>> intermediateMap = map.entrySet().stream()
-                .collect(Collectors.groupingBy(Map.Entry::getValue,
-                        Collectors.mapping(Map.Entry::getKey,Collectors.toList())
-                ));
-
-        //sort the map by key(i.e,salary) in descending order and
-        //find out the names of employees who get the nth highest salary
-        Map.Entry<Integer,List<String>> entry = intermediateMap.entrySet().stream()
+        Map.Entry<Integer,List<String>> entry = map.entrySet().stream()
+                .collect(
+                        Collectors.groupingBy(Map.Entry::getValue,
+                            Collectors.mapping(Map.Entry::getKey
+                                                ,Collectors.toList()))
+                ).entrySet().stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
                 .collect(Collectors.toList()).get(n-1);
 
