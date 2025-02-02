@@ -6,10 +6,10 @@ import java.util.*;
  * Four people A,B,C,D has to cross a bridge that will collapse in
  * 15 minutes.
  * <p>
- * A can cross the bridge in 1 minute
- * B can cross the bridge in 2 minutes
- * C can cross the bridge in 5 minutes
- * D can cross the bridge in 8 minutes
+ * A can cross the bridge in 8 minutes
+ * B can cross the bridge in 5 minutes
+ * C can cross the bridge in 2 minutes
+ * D can cross the bridge in 1 minute
  * <p>
  * It is pitch dark at night, and you need a torch to cross the bridge
  * There is only one torch
@@ -24,8 +24,8 @@ public class BridgePuzzle
 
     public BridgePuzzle()
     {
-        persons = List.of("A","D","C","B");
-        timingMap = Map.of(persons.get(0),1,persons.get(1),8,persons.get(2),5,persons.get(3),2);
+        persons = List.of("A","B","C","D");
+        timingMap = Map.of(persons.get(0),8,persons.get(1),5,persons.get(2),2,persons.get(3),1);
         timeAvailable = 15;
     }
 
