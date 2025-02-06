@@ -25,7 +25,8 @@ public class ExerciseTwentyFour implements Runnable
         int n = 3;
         String suffix = "rd";
         Map.Entry<Integer,List<String>> entry = getNthTopSalariedPeople(map,n);
-        log.debug("{}{} highest salary:{}",n, suffix,entry);
+        log.debug("{}{} highest salary is {} . It is received by {}",
+                n, suffix,entry.getKey(),entry.getValue());
     }
 
     private Map.Entry<Integer,List<String>> getNthTopSalariedPeople(Map<String,Integer> map, int n)
@@ -37,7 +38,7 @@ public class ExerciseTwentyFour implements Runnable
                                                 ,Collectors.toList()))
                 ).entrySet().stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
-                .collect(Collectors.toList()).get(n-1);
+                .toList().get(n-1);
 
         return entry;
     }
