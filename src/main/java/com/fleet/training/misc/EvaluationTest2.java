@@ -30,21 +30,21 @@ public class EvaluationTest2 implements Runnable
             }
             else if (c == ')' || c == ']' || c == '}')
             {
-                try
+                if (stack.empty())
+                {
+                    result = false;
+                    break;
+                }
+                else
                 {
                     char top = stack.pop();
-                    if ( ((c == ')') && (top != '(')) ||
+                    if (((c == ')') && (top != '(')) ||
                             ((c == '}') && (top != '{')) ||
-                            ((c == ']') && (top != '[')) )
+                            ((c == ']') && (top != '[')))
                     {
                         result = false;
                         break;
                     }
-                }
-                catch(EmptyStackException ex)
-                {
-                    result = false;
-                    break;
                 }
 
             }
