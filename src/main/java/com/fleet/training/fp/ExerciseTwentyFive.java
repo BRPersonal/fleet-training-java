@@ -17,7 +17,10 @@ public class ExerciseTwentyFive implements Runnable
     {
         List<BlogPost> posts = createBlogPosts();
         Map<String,List<BlogPost>> result = getMostRecentPostsByCategory(posts,3);
-        result.entrySet().forEach(entry -> log.debug("{}",entry));
+        result.entrySet().forEach(entry -> {
+                log.debug("{}",entry);
+                log.debug("------------------");
+        });
     }
 
     private List<BlogPost> createBlogPosts()
@@ -26,11 +29,11 @@ public class ExerciseTwentyFive implements Runnable
         List<BlogPost> posts = new ArrayList<>();
 
         // Technology category
+        posts.add(new BlogPost("Docker for Beginners", "Technology", LocalDate.of(2023, 6, 5)));
+        posts.add(new BlogPost("Web Development Trends", "Technology", LocalDate.of(2023, 5, 25)));
         posts.add(new BlogPost("Java 21 Features", "Technology", LocalDate.of(2023, 9, 15)));
         posts.add(new BlogPost("Introduction to Spring Boot", "Technology", LocalDate.of(2023, 8, 20)));
         posts.add(new BlogPost("Microservices Architecture", "Technology", LocalDate.of(2023, 7, 10)));
-        posts.add(new BlogPost("Docker for Beginners", "Technology", LocalDate.of(2023, 6, 5)));
-        posts.add(new BlogPost("Web Development Trends", "Technology", LocalDate.of(2023, 5, 25)));
 
         // Travel category
         posts.add(new BlogPost("Exploring Japan", "Travel", LocalDate.of(2023, 9, 10)));
