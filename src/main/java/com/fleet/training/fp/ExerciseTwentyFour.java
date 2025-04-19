@@ -31,15 +31,15 @@ public class ExerciseTwentyFour implements Runnable
 
     private Map.Entry<Integer,List<String>> getNthTopSalariedPeople(Map<String,Integer> map, int n)
     {
-        Map.Entry<Integer,List<String>> entry = map.entrySet().stream()
-                .collect(
-                        Collectors.groupingBy(Map.Entry::getValue,
-                            Collectors.mapping(Map.Entry::getKey
-                                                ,Collectors.toList()))
-                ).entrySet().stream()
+        Map.Entry<Integer,List<String>> result = map.entrySet().stream()
+                .collect(Collectors.groupingBy(Map.Entry::getValue,
+                                                Collectors.mapping(Map.Entry::getKey,
+                                                        Collectors.toList())
+                                            )
+                )
+                .entrySet().stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
                 .toList().get(n-1);
-
-        return entry;
+        return result;
     }
 }
