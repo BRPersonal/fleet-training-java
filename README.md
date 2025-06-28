@@ -1,3 +1,8 @@
+//TODO - try out these fp exercises
+https://medium.com/@ujjawalr/10-java-stream-power-moves-java-8-to-17-that-instantly-make-you-look-like-a-pro-4ef836f51c4a
+
+
+
 #compile Java classes
 gradle clean compileJava compileTestJava
 gradle clean build
