@@ -21,12 +21,12 @@ public class ExerciseThree implements Runnable
             executor.submit(counter::increment);
         }
         executor.shutdown();
-        log.debug("Final count={}", counter.get());
+        log.debug("Final count={}", counter.get()); //This will vary for each run
     }
 
-    private class AtomicCounter
+    private static class AtomicCounter
     {
-        private AtomicInteger counter = new AtomicInteger(0);
+        private final AtomicInteger counter = new AtomicInteger(0);
 
         public void increment()
         {
