@@ -1,6 +1,6 @@
 //lombok dependencies
 ext {
-    lombokVersion = "1.18.30"
+    lombokVersion = "1.18.46"
 }
 dependencies {
     compileOnly "org.projectlombok:lombok:${lombokVersion}"

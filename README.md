@@ -20,4 +20,11 @@ Enter package (1 - fp 2 - generics 3 - optional 4 - concurrent 5 - misc):1 or 2 
 Enter class name to run in console
 
 
+01-Aug-26
+-----------
+Upgrading to Java 25
+Gradle daemon → pinned to JDK 21 via gradle.properties (Gradle 8.14 doesn't run on JDK 25 yet)
+Lombok → bumped 1.18.30 → 1.18.46 (old version didn't know JDK 21's javac internals)
+Your java { toolchain { languageVersion = 25 } } block stayed untouched — that's still handling compiling/running your actual code on 25
+
 
