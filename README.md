@@ -27,4 +27,10 @@ Gradle daemon → pinned to JDK 21 via gradle.properties (Gradle 8.14 doesn't ru
 Lombok → bumped 1.18.30 → 1.18.46 (old version didn't know JDK 21's javac internals)
 Your java { toolchain { languageVersion = 25 } } block stayed untouched — that's still handling compiling/running your actual code on 25
 
+03-Aug-26
+----------
+Migrated to gradle 9.6.1. This required adding this line in gradle/unit-test.gradle
+testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.8.1"
+
+
 
