@@ -5,6 +5,25 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ *
+ * source: https://dzone.com/articles/rethinking-java-design-patterns
+ *
+ * My take on this exercise
+ *
+ * It says the traditional approach is fragile because if you are to
+ * add a new product type, u need it do it in two places - enumeration
+ * and factory. To solve this fragility, functional approach is taken
+ *
+ * My take is we have unnecessarily complicated the code with need
+ * to introduce a TriFunction and some obscure code.
+ *
+ * In a traditional factory approach, we have a switch - case,
+ * going through all product types. So if you are adding a new
+ * product type enum, with a switch-case in factory, you are going
+ * to be get caught at compile time itself. SO why this complication?
+ *
+ */
 @Slf4j
 public class ExerciseTwentySix implements Runnable
 {
